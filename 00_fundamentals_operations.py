@@ -99,3 +99,38 @@ print(z,x)
 #Also, view still points to the underlying tensor, and the returned reshaped tensor does not
 
 #Stacking Tensors
+x_stacked = torch.stack([x, x, x, x], dim=0) # try changing dim to dim=1 and see what happens
+print(x_stacked)
+
+#Squeeing Tensors -> removes all dimensions that are only 1
+print(f"Previous tensor: {x_reshaped}")
+print(f"Previous shape: {x_reshaped.shape}")
+
+# Remove extra dimension from x_reshaped
+x_squeezed = x_reshaped.squeeze()
+print(f"\nNew tensor: {x_squeezed}")
+print(f"New shape: {x_squeezed.shape}")
+#[[5., 2., 3., 4., 5., 6., 7.]] -> [5., 2., 3., 4., 5., 6., 7.]
+
+
+## Add an extra dimension with unsqueeze
+print(f"Previous tensor: {x_squeezed}")
+print(f"Previous shape: {x_squeezed.shape}")
+x_unsqueezed = x_squeezed.unsqueeze(dim=0)
+print(f"\nNew tensor: {x_unsqueezed}")
+print(f"New shape: {x_unsqueezed.shape}")
+
+#Permuting Tensors
+x_original = torch.rand(size=(224, 224, 3))
+x_permuted = x_original.permute(2, 0, 1) # shifts axis 0->1, 1->2, 2->0
+
+print(x_original)
+print(f"Previous shape: {x_original.shape}")
+#Previous shape: torch.Size([224, 224, 3])
+print(x_permuted)
+print(f"New shape: {x_permuted.shape}")
+#New shape: torch.Size([3, 224, 224])
+
+#note, permuted tensor shares a view with the original, and so changing values will change values on the original
+
+
